@@ -1,0 +1,4 @@
+suites:
+    base_suite:
+        namespace: Jdecano\Api
+        src_path: src

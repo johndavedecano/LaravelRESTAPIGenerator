@@ -1,0 +1,26 @@
+{
+    "name": "jdecano/api",
+    "description": "",
+    "authors": [
+        {
+            "name": "John Dave Decano",
+            "email": "johndavedecano@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": {
+            "Jdecano\\Api\\": "src/",
+            "psr-0": {"": "src"}
+        }
+    },
+    "minimum-stability": "stable"
+}

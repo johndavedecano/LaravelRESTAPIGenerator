@@ -1,0 +1,210 @@
+<?php
+
+class {{CONTROLLER}} extends \BaseController {
+
+	/**
+	 * Display a listing of the resource.
+	 * GET /apitest
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+        try {
+
+            $collection = new {{MODEL}};
+            $collection->select();
+
+            if(Input::get('max')) {
+                $collection = $collection->take(Input::get('max'));
+            }
+
+            if(Input::get('index')) {
+                $collection = $collection->skip(Input::get('index'));
+            }
+
+            if(Input::get('where')) {
+                $params = explode("|", Input::get('where'));
+                $collection = $collection->where($params[0],$params[1],$params[2]);
+            }
+
+            if(Input::get('like')) {
+                $params = explode("|", Input::get('like'));
+                $collection = $collection->where($params[0],'LIKE','%'.$params[1].'%');
+            }
+
+            $data = [
+                'total' => count($collection->get()),
+                'data'  => $collection->get(),
+            ];
+
+            $response = Response::make(json_encode($data), 200);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+
+	    } catch(Exception $e) {
+
+            $message = (isset($e->errorInfo)) ? $e->errorInfo : $e->getMessage();
+
+            $data = ['error' => $message];
+
+            $response = Response::make(json_encode($data), 500);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+        }
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 * POST /apitest
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+        try {
+
+            $model = {{MODEL}}::create(Input::all());
+
+            $response = Response::make($model->toJson(), 200);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+
+        } catch(Exception $e) {
+
+            $message = (isset($e->errorInfo)) ? $e->errorInfo : $e->getMessage();
+
+            $data = ['error' => $message, 'code' => $e->getCode(),'line' => $e->getLine()];
+
+            $response = Response::make(json_encode($data), 500);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+        }
+	}
+
+	/**
+	 * Display the specified resource.
+	 * GET /apitest/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+        try {
+
+            $model = {{MODEL}}::find($id);
+
+            if(is_null($model)) {
+                throw new Exception("Data not found.");
+            }
+
+            $response = Response::make($model->toJson(), 200);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+
+        } catch(Exception $e) {
+
+            $message = (isset($e->errorInfo)) ? $e->errorInfo : $e->getMessage();
+
+            $data = ['error' => $message, 'code' => $e->getCode(),'line' => $e->getLine()];
+
+            $response = Response::make(json_encode($data), 500);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+        }
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 * PUT /apitest/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+        try {
+
+            $model = {{MODEL}}::find($id);
+
+            if(is_null($model)) {
+                throw new Exception("Data not found.");
+            }
+
+            {{MODEL}}::where('id', '=', $id)->update(Input::all());
+
+            $model = {{MODEL}}::find($id);
+
+            $response = Response::make($model->toJson(), 200);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+
+        } catch(Exception $e) {
+
+            $message = (isset($e->errorInfo)) ? $e->errorInfo : $e->getMessage();
+
+            $data = ['error' => $message, 'code' => $e->getCode(),'line' => $e->getLine()];
+
+            $response = Response::make(json_encode($data), 500);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+        }
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 * DELETE /apitest/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+        try {
+
+            $model = {{MODEL}}::find($id);
+
+            if(is_null($model)) {
+                throw new Exception("Data not found.");
+            }
+
+            $model->delete();
+
+            $response = Response::make($model->toJson(), 200);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+
+        } catch(Exception $e) {
+
+            $message = (isset($e->errorInfo)) ? $e->errorInfo : $e->getMessage();
+
+            $data = ['error' => $message, 'code' => $e->getCode(),'line' => $e->getLine()];
+
+            $response = Response::make(json_encode($data), 500);
+
+            $response->header('Content-Type', 'application/json');
+
+            return $response;
+        }
+	}
+
+}
