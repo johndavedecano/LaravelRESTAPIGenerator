@@ -72,4 +72,43 @@ After your run the command it will generate the following.
 **RETURNS** - JSON
 
 
+# Authentication
+
+Wrap your routes with a filter. Heres an example:
+
+## Basic HTTP Authentication
+
+~~~
+// routes.php
+Route::group(array('before' => 'auth.basic', function()
+{
+    // Your route goes here
+}));
+
+// filters.php
+Route::filter('auth.basic', function()
+{
+    return Auth::basic('username'); 
+});
+~~~
+
+## You can ask authentication from your request header
+~~~
+// routes.php
+Route::group(array('before' => 'secure_token', function()
+{
+    // Your route goes here
+}));
+
+// filters.php
+Route::filter('secure_token', function()
+{
+    $username = Request::header('username');
+    $token = Request::header('token');
+    
+    // Then create some kind of validation here
+    // If fails then send a 403 Response
+    // Easy!
+});
+~~~
 
