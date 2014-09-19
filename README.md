@@ -18,7 +18,7 @@ Api Version e.g 1.0: 2.0
 
 # Configuration
 
-The configuration is at app/config/jdecano/api/paths.php
+The configuration is at app/config/packages/jdecano/api/paths.php
 
 ~~~
 return [
