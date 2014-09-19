@@ -27,10 +27,6 @@ class ApiMakeCmd extends Command {
      * @var null
      */
     private $model = null;
-    /**
-     * @var bool
-     */
-    private $secured = false;
 
     /**
      * @var
@@ -54,27 +50,19 @@ class ApiMakeCmd extends Command {
 	 */
 	public function fire()
 	{
-        $this->model = $this->option('api_m');
 
-        $this->version = $this->option('api_v');
 
-        $this->secured = (bool)$this->option('api_s');
+    	$handler = fopen ("php://stdin","r");
 
-        $this->processor->run($this->model, $this->version, $this->secured);
-	}
+    	echo "Eloquent Model e.g User:";
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-            array('api_m', '--api_m', InputOption::VALUE_REQUIRED, 'Eloquent Model.', null),
-			array('api_v', '--api_v', InputOption::VALUE_REQUIRED, 'API Version.', null),
-            array('api_s', '--api_s', InputOption::VALUE_REQUIRED, 'Require API Key.', false),
-		);
+    	$this->model = trim(fgets($handler));
+
+    	echo "Api Version e.g 1.0:";
+
+    	$this->version = trim(fgets($handler));
+
+        $this->processor->run($this->model, $this->version);
 	}
 
 }

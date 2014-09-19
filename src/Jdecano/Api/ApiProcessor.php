@@ -34,13 +34,13 @@ class ApiProcessor implements IApiProcessor
      * @param string $version
      * @param bool $secured
      */
-    public function run($model = null, $version = '1.0', $secured = false)
+    public function run($model = null, $version = '1.0')
     {
         try {
 
             // User IOC to resolve the Validator Class
             $validator = $this->app->make('Jdecano\Api\IApiValidator');
-            $validator->validate(['model' => $model, 'version' => $version, 'secured' => $secured]);
+            $validator->validate(['model' => $model, 'version' => $version]);
 
             echo "Parameters has been validated.".PHP_EOL;
 

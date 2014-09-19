@@ -9,11 +9,23 @@ A simple package that will help you save your time to create a basic RESTful API
 
 # Usage
 ~~~
-php artisan api:make --api_m=User --api_v=1.0
+php artisan api:make
+
+Eloquent Model e.g User: User
+
+Api Version e.g 1.0: 2.0
 ~~~
-#Required Parameters
-1. api_m = Your Eloquent Model
-2. api_v = Version default to 1.0
+
+# Configuration
+
+The configuration is at app/config/jdecano/api/paths.php
+
+~~~
+return [
+    'controller_target_path'   => app_path('controllers'),
+    'routes_file'              => app_path('routes.php')
+];
+~~~
 
 # Example Output
 

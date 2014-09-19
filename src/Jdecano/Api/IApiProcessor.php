@@ -9,5 +9,5 @@ namespace Jdecano\Api;
 
 interface IApiProcessor
 {
-    public function run($model = null, $version = '1.0', $secured = false);
+    public function run($model = null, $version = '1.0');
 }
