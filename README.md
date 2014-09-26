@@ -5,7 +5,7 @@ A simple package that will help you save your time to create a basic RESTful API
 # How to Install
 1. First clone this package.
 2. Edit your app.php and 'Jdecano\Api\ApiServiceProvider' to your available service providers.
-3. Publish the config "php artisan config:publish jdecano/api"
+3. Publish the config "php artisan config:publish jdecano/api""
 
 # Usage
 ~~~
